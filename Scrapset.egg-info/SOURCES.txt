@@ -1,0 +1,12 @@
+README.md
+licence.txt
+setup.cfg
+setup.py
+Scrapset/Scrapset.py
+Scrapset/__init__.py
+Scrapset.egg-info/PKG-INFO
+Scrapset.egg-info/SOURCES.txt
+Scrapset.egg-info/dependency_links.txt
+Scrapset.egg-info/not-zip-safe
+Scrapset.egg-info/requires.txt
+Scrapset.egg-info/top_level.txt
