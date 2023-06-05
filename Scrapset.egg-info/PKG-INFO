@@ -1,13 +1,14 @@
 Metadata-Version: 2.1
 Name: Scrapset
-Version: 0.1.0
-Summary: Scraping Dataset sites
+Version: 1.1.0
+Summary: DataScraper: Effortless Dataset Extraction
 Author: Ibrahim
 Author-email: string2025@gmail.com
 Description-Content-Type: text/markdown
 License-File: licence.txt
 
 # Dataset Scraper (Scrapset)
+
 
 
 Scrapset is a Python module specifically created for web scraping data from websites like Kaggle and Data.gov. It simplifies the task of extracting dataset information such as titles, upvotes (for Kaggle), and recent views (for Data.gov).
@@ -36,6 +37,7 @@ data_set_page(url, last_page, initial_page): Scrapes the titles, recent views, a
 
 # Example code to extract titles of datasets from Data.gov
 
+
 ```
 
 import kaggle_datasets as m
@@ -48,6 +50,7 @@ datf.to_csv('datagov.csv',index=False)
 ```
 
 # Example code to extract titles, upvote, Usability index  of datasets from kaggle
+
 
 ```
 
