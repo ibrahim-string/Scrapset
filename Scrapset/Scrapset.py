@@ -67,11 +67,11 @@ class DataDotGov:
         try:
             driver = self.web_driver_chrome()
             self.url = url
-            time.sleep(1)
+            time.sleep(0.7)
             list_of_datasets = {'title': [], 'author': [], 'recent_views': []}
             while initial_page <= last_page:
                 driver.get(self.url + f'/dataset?page={initial_page}')
-                time.sleep(2)
+                time.sleep(0.5)
                 initial_page = initial_page + 1 
                 titles = driver.find_elements(By.XPATH, '//*[@id="content"]/div[2]/div/section[1]/div[2]/ul/li')
                 c=0
