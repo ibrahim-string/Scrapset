@@ -20,7 +20,7 @@ class KaggleDataSet:
         try:
             driver = webdriver.Chrome()
             self.url = url
-            time.sleep(2)
+            time.sleep(1)
             
             list_of_dic = {'title': [], 'size': [],'all_details':[],'up_vote':[]}  # Initialize the dictionary
 
@@ -28,7 +28,7 @@ class KaggleDataSet:
                 # i = i + 1
                 initial_page=initial_page + 1 
                 driver.get(self.url + f'/datasets?page={initial_page}')
-                time.sleep(2)
+                time.sleep(0.5)
                 titles = driver.find_elements(By.XPATH, '//*[@id="site-content"]/div[6]/div/div/div/ul/li/div[1]/a')
                 for title in titles:
                     data_set_title = title.find_element(By.XPATH, './div[2]/div').text

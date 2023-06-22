@@ -1,2 +1,1 @@
-from Scrapset import KaggleDataSet
-from Scrapset import DataDotGov
+from .Scrapset import KaggleDataSet, DataDotGov
