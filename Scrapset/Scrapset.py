@@ -27,7 +27,7 @@ class KaggleDataSet:
             while initial_page < last_page:  
                 # i = i + 1
                 initial_page=initial_page + 1 
-                driver.get(self.url + f'/datasets?page={initial_page}')
+                driver.get(self.url + f'/datasets?page={self.initial_page}')
                 time.sleep(0.5)
                 titles = driver.find_elements(By.XPATH, '//*[@id="site-content"]/div[6]/div/div/div/ul/li/div[1]/a')
                 for title in titles:
@@ -50,6 +50,36 @@ class KaggleDataSet:
             return list_of_dic
         except:
             logging.error("Invalid Url")
+    def kaggle_discussions(self,url,initial_page,last_page):
+        self.url=url
+        driver=webdriver.Chrome()
+        time.sleep(1)
+        list_of_dic = {'title': [],'all_details':[],'up_vote':[],'comments':[]}  # Initialize the dictionary
+        while initial_page <= last_page:
+            driver.get(url+f'/discussions?page={initial_page}')
+            initial_page=initial_page+1
+            time.sleep(2)
+            threads=driver.find_elements(By.XPATH,'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li/div[1]')
+            c=0
+            for thread in threads:
+                c=c+1
+                try:
+                    title=thread.find_element(By.XPATH,f'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li[{c}]/div[1]/a/div/div/div').text
+                    all_details=thread.find_element(By.XPATH,f'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li[{c}]/div[1]/a/div/span').text
+                    up_votes=thread.find_element(By.XPATH,f'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li[{c}]/div[1]/div[2]/div/div[1]/span').text
+                    comments=thread.find_element(By.XPATH,f'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li[{c}]/div[1]/div[2]/div/div[2]/span/span').text
+                except:
+                    list_of_dic['comments'].append("")
+                    list_of_dic['title'].append("")
+                    list_of_dic['all_details'].append("")
+                    list_of_dic['up_vote'].append("")
+                    continue
+                list_of_dic['title'].append(title)
+                list_of_dic['all_details'].append(all_details)
+                list_of_dic['up_vote'].append(up_votes)
+                list_of_dic['comments'].append(comments)
+        driver.quit()
+        return list_of_dic
 
 
 class DataDotGov:
