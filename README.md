@@ -55,6 +55,19 @@ datf.to_csv('kaggle.csv',index=False)
 
 ```
 
+# Example code to extract job details from indeed 
+# You get the details in the form of a dictionary
+There are three arguments in indeed_jobs method 
+First: Url
+Second: last page that you want to scrap the data
+query: what job do you want to scrap
+
+```
+import indeed as in
+dictionary=in()
+data = indeed('https://ie.indeed.com', 40, 'data scientist')
+```
+
 #  Note:  This is for running Scrapset in google colab : 
 
 ```
