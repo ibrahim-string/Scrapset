@@ -90,7 +90,6 @@ class DataDotGov:
         options = webdriver.ChromeOptions()
         options.add_argument("--verbose")
         options.add_argument('--no-sandbox')
-        # options.add_argument('--headless')
         options.add_argument('--disable-gpu')
         options.add_argument("--window-size=1920,1200")
         options.add_argument('--disable-dev-shm-usage')
@@ -124,3 +123,47 @@ class DataDotGov:
             return list_of_datasets
         except:
             logging.error("Invalid Url")
+class indeed:
+    def web_driver_chrome(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--verbose")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1200")
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+        return driver 
+    def indeed_jobs(self,url,last_page,query):
+        try:
+            driver = self.web_driver_chrome()
+            self.url=url
+            time.sleep(1)
+            list_of_dic = {'title': [],'all_details':[],'salary':[]}  
+            initial_page=0
+            while initial_page < last_page:
+                time.sleep(2)
+                driver.get(url + f'/jobs?q={query}'+f'&start={initial_page}')
+                initial_page+=10
+                cards=driver.find_elements(By.XPATH,'.//*[@id="mosaic-provider-jobcards"]/ul/li/div/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[1]/h2')
+                details=driver.find_elements(By.XPATH,'.//*[@id="mosaic-provider-jobcards"]/ul/li/div/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[2]')    
+                salaries=driver.find_elements(By.XPATH,'.//*[@id="mosaic-provider-jobcards"]/ul/li/div/div[1]/div/div[1]/div/table[1]/tbody/tr/td/div[3]/div/div')             
+                for card in cards:
+                        try:
+                                list_of_dic['title'].append(card.text)
+                        except:
+                                list_of_dic['title'].append(" ")
+                for detail in details:
+                        try:
+                                list_of_dic['all_details'].append(detail.text)
+                        except:
+                                list_of_dic['all_details'].append(" ")
+
+                for salary in salaries:
+                        try: 
+                                list_of_dic['salary'].append(salary.text)
+                        except:
+                                list_of_dic['salary'].append(" ")
+            driver.quit()
+            return list_of_dic  
+        except:
+             logging.error("Invalid url") 
