@@ -54,12 +54,12 @@ class KaggleDataSet:
         try:
             self.url=url
             driver=webdriver.Chrome()
-            time.sleep(0.8)
+            time.sleep(1)
             list_of_dic = {'title': [],'all_details':[],'up_vote':[],'comments':[]}  # Initialize the dictionary
             while initial_page <= last_page:
                 driver.get(url+f'/discussions?page={initial_page}')
                 initial_page=initial_page+1
-                time.sleep(0.5)
+                time.sleep(3)
                 threads=driver.find_elements(By.XPATH,'//*[@id="site-content"]/section[2]/div[2]/div/div/div/div/div[4]/ul/li/div[1]')
                 c=0
                 for thread in threads:
