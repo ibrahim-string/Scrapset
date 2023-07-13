@@ -17,7 +17,7 @@ class KaggleDataSet:
         return driver
 
     def data_set_page(self, url, last_page, initial_page):
-        try:
+        # try:
             driver = webdriver.Chrome()
             self.url = url
             time.sleep(1)
@@ -27,7 +27,7 @@ class KaggleDataSet:
             while initial_page < last_page:  
                 # i = i + 1
                 initial_page=initial_page + 1 
-                driver.get(self.url + f'/datasets?page={self.initial_page}')
+                driver.get(self.url + f'/datasets?page={initial_page}')
                 time.sleep(0.5)
                 titles = driver.find_elements(By.XPATH, '//*[@id="site-content"]/div[6]/div/div/div/ul/li/div[1]/a')
                 for title in titles:
@@ -48,8 +48,8 @@ class KaggleDataSet:
                     list_of_dic['up_vote'].append(data_set_upvote)
             driver.quit()
             return list_of_dic
-        except:
-            logging.error("Invalid Url")
+        # except:
+        #     logging.error("Invalid Url")
     def kaggle_discussions(self,url,initial_page,last_page):
         try:
             self.url=url
@@ -183,7 +183,6 @@ class AI:
                 driver = self.web_driver_chrome()
                 self.url=url
                 time.sleep(1)
-                list_of_dic = {'title': [],'salary':[],'location':{}}  
                 c=0
                 corpus=list()
                 driver.get(url)
