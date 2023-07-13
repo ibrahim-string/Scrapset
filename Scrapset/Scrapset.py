@@ -17,7 +17,7 @@ class KaggleDataSet:
         return driver
 
     def data_set_page(self, url, last_page, initial_page):
-        # try:
+        try:
             driver = webdriver.Chrome()
             self.url = url
             time.sleep(1)
@@ -48,8 +48,8 @@ class KaggleDataSet:
                     list_of_dic['up_vote'].append(data_set_upvote)
             driver.quit()
             return list_of_dic
-        # except:
-        #     logging.error("Invalid Url")
+        except:
+            logging.error("Invalid Url")
     def kaggle_discussions(self,url,initial_page,last_page):
         try:
             self.url=url
