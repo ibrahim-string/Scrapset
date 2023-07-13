@@ -167,3 +167,41 @@ class indeed:
             return list_of_dic  
         except:
              logging.error("Invalid url") 
+class AI:
+    def web_driver_chrome(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--verbose")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1200")
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+        return driver 
+    def ai_jobs_net(self,url):
+            try:
+            
+                driver = self.web_driver_chrome()
+                self.url=url
+                time.sleep(1)
+                list_of_dic = {'title': [],'salary':[],'location':{}}  
+                c=0
+                corpus=list()
+                driver.get(url)
+                while True:
+                    cards=driver.find_elements(By.XPATH,'.//*[@id="job-list"]/li')
+                    
+                    try:
+                        load_more_elements=driver.find_element(By.XPATH,'.//*[@id="load-more-jobs"]/a/h5')
+                        for card in cards:
+                            corpus.append(card.text+'<>?')
+                        driver.execute_script("arguments[0].scrollIntoView();", load_more_elements)
+                        time.sleep(1)
+                        driver.execute_script("arguments[0].click();", load_more_elements)
+                        time.sleep(1)
+                    except:
+                        break
+                    
+                driver.quit()
+                return corpus  
+            except:
+                 logging.error("Invalid url")

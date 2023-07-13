@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='Scrapset',
-    version='4.2.1',
+    version='4.3.1',
     description='DataScraper: Effortless Dataset Extraction',
     author='Ibrahim',
     author_email='string2025@gmail.com',
