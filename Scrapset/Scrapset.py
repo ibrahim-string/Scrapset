@@ -1,5 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import logging
 
@@ -183,7 +185,6 @@ class AI:
                 driver = self.web_driver_chrome()
                 self.url=url
                 time.sleep(1)
-                c=0
                 corpus=list()
                 driver.get(url)
                 while True:
@@ -204,3 +205,42 @@ class AI:
                 return corpus  
             except:
                  logging.error("Invalid url")
+class imdb:
+    def web_driver_chrome(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--verbose")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1200")
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+        return driver
+    def comments(self,url):
+        try:
+            driver = webdriver.Chrome()
+            self.url=url
+
+            driver.get(url)
+
+            time.sleep(1)
+            corpus=[]
+            while True:
+                try:
+                    cards=driver.find_elements(By.XPATH,'//*[@id="main"]/section/div[2]/div[2]/div')
+                    for card in cards:
+                        corpus.append(card.text+'<>?')
+                    
+                    load_more_element = WebDriverWait(driver, 10).until(
+                        EC.element_to_be_clickable((By.XPATH, '//*[@id="load-more-trigger"]'))
+                    )
+                    load_more_element.click()
+
+                    time.sleep(1)  # Adjust this delay as needed
+
+                except:
+                     break
+            driver.quit()
+            return corpus  
+        except:
+                logging.error("Invalid url")
