@@ -267,7 +267,7 @@ class vesselfinder:
             driver=webdriver.Chrome()
             c=1
             text=list()
-            while c<=10:
+            while c<=293:
                 driver.get(url+f'/ports?page={c}')
                 time.sleep(0.4)
                 cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr')
