@@ -253,8 +253,7 @@ class vesselfinder:
             while c<=200:
                 driver.get(url+f'/vessels?page={c}')
                 time.sleep(0.8)
-                cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div/table')
-
+                cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr')
                 for card in cards:
                     text.append(card.text+'<>')
                 c=c+1
@@ -268,7 +267,7 @@ class vesselfinder:
             driver=webdriver.Chrome()
             c=1
             text=list()
-            while c<=293:
+            while c<=10:
                 driver.get(url+f'/ports?page={c}')
                 time.sleep(0.4)
                 cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr')
@@ -280,3 +279,4 @@ class vesselfinder:
         except:
             driver.quit()
             logging.error('Invalid Url')
+
