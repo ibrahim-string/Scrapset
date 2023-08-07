@@ -244,3 +244,39 @@ class imdb:
             return corpus  
         except:
                 logging.error("Invalid url")
+class vesselfinder:
+    def vessel_details(self,url):
+        try:
+            driver=webdriver.Chrome()
+            c=1
+            text=list()
+            while c<=200:
+                driver.get(url+f'/vessels?page={c}')
+                time.sleep(0.8)
+                cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div/table')
+
+                for card in cards:
+                    text.append(card.text+'<>')
+                c=c+1
+            driver.quit()
+            return text
+        except:
+            driver.quit()
+            logging.error('Invalid Url')
+    def vessel_location(self,url):
+        try:
+            driver=webdriver.Chrome()
+            c=1
+            text=list()
+            while c<=293:
+                driver.get(url+f'/ports?page={c}')
+                time.sleep(0.4)
+                cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr')
+                for card in cards:
+                    text.append(card.text+'<>')
+                c=c+1
+            driver.quit()
+            return text
+        except:
+            driver.quit()
+            logging.error('Invalid Url')

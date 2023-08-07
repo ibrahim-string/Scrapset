@@ -68,6 +68,142 @@ dictionary=in()
 data = indeed('https://ie.indeed.com', 40, 'data scientist')
 ```
 
+
+# IMDb Class
+
+The IMDb class enables scraping of comments from IMDb movie pages.
+
+## Methods
+
+### web_driver_chrome()
+
+```python
+def web_driver_chrome(self) -> webdriver.Chrome:
+    """
+    Initializes and returns a Selenium Chrome WebDriver with customized options for scraping IMDb comments.
+
+    Returns:
+        webdriver.Chrome: The Chrome WebDriver object.
+    """
+```
+
+### comments(url: str) -> List[str]
+
+```python
+def comments(self, url: str) -> List[str]:
+    """
+    Scrapes comments from an IMDb movie page.
+
+    Args:
+        url (str): The URL of the IMDb movie page.
+
+    Returns:
+        List[str]: A list containing the scraped comments.
+    """
+```
+
+## Example Code
+
+Here's an example code demonstrating how to use the IMDb class to scrape comments from an IMDb movie page:
+
+```python
+import scrapset as m
+
+df = m.imdb()
+data = df.comments('https://www.imdb.com/title/tt0111161/reviews')
+```
+
+Please note that you should replace the URL `'https://www.imdb.com/title/tt0111161/reviews'` with the IMDb movie page URL you want to scrape comments from. 
+
+Sure! Let's continue with the documentation for the `VesselFinder` class:
+
+# VesselFinder Class
+
+The VesselFinder class facilitates scraping vessel details and locations.
+
+## Methods
+
+### vessel_details(url: str) -> List[str]
+
+```python
+def vessel_details(self, url: str) -> List[str]:
+    """
+    Scrapes vessel details from VesselFinder.
+
+    Args:
+        url (str): The URL of the VesselFinder vessel page.
+
+    Returns:
+        List[str]: A list containing the scraped vessel details.
+    """
+```
+
+### vessel_location(url: str) -> List[str]
+
+```python
+def vessel_location(self, url: str) -> List[str]:
+    """
+    Scrapes vessel locations from VesselFinder.
+
+    Args:
+        url (str): The URL of the VesselFinder port page.
+
+    Returns:
+        List[str]: A list containing the scraped vessel locations.
+    """
+```
+
+## Example Code
+
+Here's an example code demonstrating how to use the VesselFinder class to scrape vessel details and locations:
+
+```python
+import scrapset as m
+
+df = m.VesselFinder()
+
+# Scrape vessel details
+vessel_details = df.vessel_details('https://www.vesselfinder.com/vessels')
+
+# Scrape vessel locations
+vessel_location = df.vessel_location('https://www.vesselfinder.com/ports')
+```
+
+Please replace the URLs `'https://www.vesselfinder.com/vessels'` and `'https://www.vesselfinder.com/ports'` with the specific VesselFinder pages you want to scrape vessel details and locations from. 
+```python
+import scrapset as m
+import pandas as pd
+
+# Scrape Kaggle dataset information
+kaggle_df = m.KaggleDataSet()
+kaggle_data = kaggle_df.data_set_page('https://kaggle.com', last_page=10, initial_page=5)
+kaggle_datf = pd.DataFrame(kaggle_data)
+kaggle_datf.to_csv('kaggle.csv', index=False)
+
+# Scrape Data.gov dataset information
+datagov_df = m.DataDotGov()
+datagov_data = datagov_df.data_set_page('https://catalog.data.gov', last_page=10, initial_page=5)
+datagov_datf = pd.DataFrame(datagov_data)
+datagov_datf.to_csv('datagov.csv', index=False)
+
+# Scrape job details from Indeed
+indeed_df = m.indeed()
+indeed_data = indeed_df.indeed_jobs('https://ie.indeed.com', 40, 'data scientist')
+indeed_datf = pd.DataFrame(indeed_data)
+indeed_datf.to_csv('indeed_jobs.csv', index=False)
+
+# Scrape comments from IMDb movie page
+imdb_df = m.imdb()
+imdb_data = imdb_df.comments('https://www.imdb.com/title/tt0111161/reviews')
+
+# Scrape vessel details and locations from VesselFinder
+vesselfinder_df = m.VesselFinder()
+vessel_details = vesselfinder_df.vessel_details('https://www.vesselfinder.com/vessels')
+vessel_location = vesselfinder_df.vessel_location('https://www.vesselfinder.com/ports')
+```
+
+
+
 #  Note:  This is for running Scrapset in google colab : 
 
 ```
