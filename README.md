@@ -115,7 +115,7 @@ data = df.comments('https://www.imdb.com/title/tt0111161/reviews')
 
 Please note that you should replace the URL `'https://www.imdb.com/title/tt0111161/reviews'` with the IMDb movie page URL you want to scrape comments from. 
 
-Sure! Let's continue with the documentation for the `VesselFinder` class:
+
 
 # VesselFinder Class
 
@@ -155,7 +155,6 @@ def vessel_location(self, url: str) -> List[str]:
 
 ## Example Code
 
-Here's an example code demonstrating how to use the VesselFinder class to scrape vessel details and locations:
 
 ```python
 import scrapset as m
