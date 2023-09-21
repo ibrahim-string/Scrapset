@@ -249,16 +249,28 @@ class vesselfinder:
         try:
             driver=webdriver.Chrome()
             c=1
-            text=list()
+            company=list()
+            ship_name=list()
+            built_year=list()
+            gt=list()
+            dwt=list()
+            size=list()
+            details={'Company_Name':company,'ship_name':ship_name,'built_year':built_year,'gt':gt,'dwt':dwt,'size':size}
             while c<=200:
                 driver.get(url+f'/vessels?page={c}')
                 time.sleep(0.8)
                 cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr')
                 for card in cards:
-                    text.append(card.text+'<>')
+                    company.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[1]/a/div[3]/div[1]').text)
+                    ship_name.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[1]/a/div[3]/div[2]').text)
+                    built_year.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[2]').text)
+                    gt.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[3]').text)
+                    dwt.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[4]').text)
+                    size.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div/table/tbody/tr/td[5]').text)
+
                 c=c+1
             driver.quit()
-            return text
+            return details
         except:
             driver.quit()
             logging.error('Invalid Url')
@@ -266,17 +278,57 @@ class vesselfinder:
         try:
             driver=webdriver.Chrome()
             c=1
-            text=list()
+            country=list()
+            port_name=list()
+            locode=list()
+            location={'country':country,'port_name':port_name,'locode':locode}
             while c<=293:
                 driver.get(url+f'/ports?page={c}')
                 time.sleep(0.4)
                 cards=driver.find_elements(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr')
                 for card in cards:
-                    text.append(card.text+'<>')
+                    # text.append(card.text+'<>')
+                    country.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr/td[1]/div/a/div[2]').text)
+                    port_name.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr/td[1]/div/a/div[1]').text)
+                    locode.append(card.find_element(By.XPATH,'/html/body/div[1]/div/main/div[1]/table/tbody/tr/td[2]').text)
+                    
                 c=c+1
             driver.quit()
-            return text
+            return location
         except:
             driver.quit()
             logging.error('Invalid Url')
 
+# API for scraping g2.com
+class g2:
+    def web_driver_chrome(self):
+        options = webdriver.ChromeOptions()
+        options.add_argument("--verbose")
+        options.add_argument('--no-sandbox')
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
+        options.add_argument("--window-size=1920,1200")
+        options.add_argument('--disable-dev-shm-usage')
+        driver = webdriver.Chrome(options=options)
+        return driver
+    def reviews(self,page_no,search_query):
+        
+        driver=self.web_driver_chrome()
+        
+        initial_page=1
+        reviews=[]
+        try:
+            while initial_page<=page_no:
+                
+                    driver.get(f'https://fatmongoose.staging.g2.com/products/{search_query}/reviews?page={initial_page}')
+                    initial_page=initial_page+1
+                    time.sleep(2)
+                    cards=driver.find_elements(By.CLASS_NAME,'paper__bd')
+                    for card in cards:
+                        reviews.append(card.text)
+            rv={'reviews':reviews}
+            return rv
+        except:
+            logging.error("Invalid Url")
+# Actual IP of g2.com
+# fatmongoose.staging.g2.com
