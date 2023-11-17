@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 import logging
-
+import pyautogui
 
 class KaggleDataSet:
     def web_driver_chrome(self):
@@ -332,3 +332,36 @@ class g2:
             logging.error("Invalid Url")
 # Actual IP of g2.com
 # fatmongoose.staging.g2.com
+class Angel:
+    def scroll_using_mouse(self,duration=10, scroll_amount=1):
+        end_time = time.time() + duration
+
+        while time.time() < end_time:
+            pyautogui.scroll(-scroll_amount)
+            time.sleep(0.1)
+    def Map(self,query):
+        query=query.replace(" ","+")
+        
+        driver=webdriver.Chrome()
+        time.sleep(2)
+        driver.get(f"https://www.google.com/maps/search/{query}")
+        self.scroll_using_mouse(duration=60, scroll_amount=100)
+
+        time.sleep(6)
+        cards=driver.find_elements(By.CLASS_NAME,'lI9IFe ')
+        company=list()
+        num=list()
+       
+        
+        for card in cards:
+            try:
+                company.append(card.find_element(By.CLASS_NAME,'NrDZNb').text)
+            except:
+                company.append(False)
+            try:
+                num.append(card.find_element(By.CLASS_NAME,'UsdlK').text)
+            except:
+                num.append(False)
+        driver.quit()
+        dic={'Company_Name':company,'Phone_no':num}
+        return dic

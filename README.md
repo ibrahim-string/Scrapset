@@ -200,6 +200,45 @@ vesselfinder_df = m.VesselFinder()
 vessel_details = vesselfinder_df.vessel_details('https://www.vesselfinder.com/vessels')
 vessel_location = vesselfinder_df.vessel_location('https://www.vesselfinder.com/ports')
 ```
+# Angel Scraper
+
+## Introduction
+
+The `Angel` class in the `scrapset` module is designed to scrape data from Google Maps. It provides a method for scrolling down the map and extracting information about companies and their phone numbers.
+
+## Methods
+
+### 1. `scroll_using_mouse(duration=10, scroll_amount=1)`
+
+This method simulates scrolling down on the webpage using the mouse wheel. It continues scrolling for the specified duration with a specified scroll amount.
+
+- **Parameters:**
+  - `duration` (int): The duration (in seconds) for which the scrolling action will continue.
+  - `scroll_amount` (int): The number of "clicks" of the scroll wheel to simulate. A positive value scrolls down, and a negative value scrolls up.
+
+### 2. `Map(query)`
+
+This method initiates a search on Google Maps based on the provided query. It then utilizes the `scroll_using_mouse` method to scroll down the map and extracts information about companies and their phone numbers.
+
+- **Parameters:**
+  - `query` (str): The search query for Google Maps.
+
+- **Note on Scrolling:**
+  - The scrolling action performed by `scroll_using_mouse` will only work correctly when the mouse cursor is positioned over the map cards on the webpage.
+
+## Example Usage
+
+```python
+from scrapset import Angel
+
+# Create an instance of the Angel class
+angel_instance = Angel()
+
+# Perform a Google Maps search for "example query"
+result = angel_instance.Map("example query")
+
+# Print the result
+print(result)
 
 
 
